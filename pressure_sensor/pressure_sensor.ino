@@ -9,21 +9,34 @@ void setup() {
   delay(3000); 
 }
 
-void loop() {
-  
-
-  
+void testSensor() {
+  // switches
   int rightSwitch = digitalRead(13);
   int leftSwitch = digitalRead(12);
+
+  // debug print
   Serial.print("RIGHT: ");
   Serial.print(rightSwitch);
   Serial.print(", LEFT: ");
   Serial.println(leftSwitch);
-  //Serial.println(buttonStatus);
+
+  // if both switches are on, send signal to cube dispenser
   if ((rightSwitch + leftSwitch) == 0) {
     Serial.println(", DROP CUBE");
+    dropCube();
   } else {
     Serial.println(", HOLD");
   }
   delay(200);
 }
+
+void dropCube() {
+  // some timer so cubes aren't dispensed all at once,
+  // as standing on the sensor will keep triggering it
+  // should probably dispense one every 15s? 
+}
+
+
+
+}
+
