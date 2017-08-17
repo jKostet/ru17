@@ -1,13 +1,20 @@
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  // Trapdoor / cube sensor only has one contact.
+  // Should it have two? 
   pinMode(12, INPUT_PULLUP);
-  pinMode(13, INPUT_PULLUP);
+  //pinMode(13, INPUT_PULLUP);
 
 
   // Wait for system to power up stable
   delay(3000); 
 }
+
+void loop() {
+  testSensor();
+}
+
 
 void testSensor() {
   // switches
@@ -34,9 +41,5 @@ void dropCube() {
   // some timer so cubes aren't dispensed all at once,
   // as standing on the sensor will keep triggering it
   // should probably dispense one every 15s? 
-}
-
-
-
 }
 

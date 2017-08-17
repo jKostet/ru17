@@ -10,6 +10,10 @@ void setup() {
   delay(3000); 
 }
 
+void loop() {
+  testSensor();
+}
+
 void testSensor() {
   // switches
   int doorSwitch = digitalRead(13);
@@ -23,7 +27,7 @@ void testSensor() {
 
   // if either switch is on, send signal to ramp lifter
   // (secret could be buffed with a sneaky sound effect)
-  if ((rightSwitch + leftSwitch) < 2) {
+  if ((doorSwitch + secretSwitch) < 2) {
     Serial.println(", LIFT RAMP");
     liftRamp();
   } else {
@@ -32,14 +36,10 @@ void testSensor() {
   delay(200);
 }
 
-void liftRampo) {
+void liftRamp() {
   // todo ramp logic, should stay up for maybe 60s + time it takes to lift,
   // then lower automatically.
   // Triggering the sensors should reset the timer,
   // or if the ramp is lowering, to stop and rise.
-}
-
-
-
 }
 

@@ -9,6 +9,10 @@ void setup() {
   delay(3000); 
 }
 
+void loop() {
+  testSensor();
+}
+
 void testSensor() {
   // switches
   int rightSwitch = digitalRead(13);
@@ -35,8 +39,3 @@ void dropCube() {
   // as standing on the sensor will keep triggering it
   // should probably dispense one every 15s? 
 }
-
-
-
-}
-
