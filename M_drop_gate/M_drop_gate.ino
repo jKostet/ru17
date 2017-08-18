@@ -7,7 +7,9 @@
 #define STEPS_PER_OUTPUT_REVOLUTION 32 * 64  //2048  
 
 // Define the stepper with the correct pins, note that the two middle pins need to be in reverse order
-Stepper small_stepper(STEPS_PER_MOTOR_REVOLUTION, 4, 6, 5, 7);
+Stepper gateStepper(STEPS_PER_MOTOR_REVOLUTION, 10, 12, 11, 13);
+Stepper leftStepper(STEPS_PER_MOTOR_REVOLUTION, 6, 8, 7, 9);
+Stepper rightStepper(STEPS_PER_MOTOR_REVOLUTION, 2, 4, 3, 5);
 
 int Steps2Take;
 
@@ -20,17 +22,20 @@ void setup() {
   
   // Trapdoor / cube sensor only has one contact.
   // Should it have two? 
-  pinMode(12, INPUT_PULLUP);
+  //pinMode(12, INPUT_PULLUP);
   //pinMode(13, INPUT_PULLUP);
 }
 
 void loop() {
-  testSensor();
+  //testSensor();
+  //openGate();
+  openTrap();
 }
 
 
 void testSensor() {
-  // switches
+  // switches  delay(100);
+
   int rightSwitch = digitalRead(13);
   int leftSwitch = digitalRead(12);
 
@@ -49,27 +54,40 @@ void testSensor() {
   delay(200);
 }
 
-void dropCube() {
-  // some timer so cubes aren't dispensed all at once,
-  // as standing on the sensor will keep triggering it
-  // should probably dispense one every 15s? 
-}
-
 void openGate() {
 
   // OPEN GATE
   Steps2Take  =  STEPS_PER_OUTPUT_REVOLUTION / 4;  // Rotate CW 1/4 turn
-  small_stepper.setSpeed(300);   
-  small_stepper.step((Steps2Take));
+  gateStepper.setSpeed(300);   
+  gateStepper.step((Steps2Take));
   delay(1000);
 
   // HOLD OPEN FOR 15s
   // delay(15000);
+  openTrap();
 
   Steps2Take  =  (-1)*STEPS_PER_OUTPUT_REVOLUTION / 4;  // Rotate CCW 1/4 turn  
-  small_stepper.setSpeed(300);
-  small_stepper.step(Steps2Take);
+  gateStepper.setSpeed(300);
+  gateStepper.step(Steps2Take);
   delay(1000);
 
+}
+
+void openTrap() {
+  Steps2Take  =  STEPS_PER_OUTPUT_REVOLUTION / 4;  // Rotate CW 1/4 turn
+  rightStepper.setSpeed(300);
+  leftStepper.setSpeed(300); 
+
+  rightStepper.step(-Steps2Take);
+  leftStepper.step((Steps2Take));
+  delay(1000);
+
+  // HOLD OPEN FOR 5s
+  //delay(5000);
+
+  Steps2Take  =  (-1)*STEPS_PER_OUTPUT_REVOLUTION / 4;  // Rotate CCW 1/4 turn  
+  rightStepper.step(-Steps2Take);
+  leftStepper.step((Steps2Take));
+  delay(1000);
 }
 
