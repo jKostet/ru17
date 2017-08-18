@@ -22,19 +22,19 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  small_stepper.setSpeed(1);   // SLOWLY Show the 4 step sequence 
-  Steps2Take  =  4;  // Rotate CW
-  small_stepper.step(Steps2Take);
-  delay(2000);
+  //small_stepper.setSpeed(1);   // SLOWLY Show the 4 step sequence 
+  //Steps2Take  =  4;  // Rotate CW
+  //small_stepper.step(Steps2Take);
+  //delay(2000);
 
-  Steps2Take  =  STEPS_PER_OUTPUT_REVOLUTION / 2;  // Rotate CW 1/2 turn
-  small_stepper.setSpeed(100);   
-  small_stepper.step(Steps2Take);
+  Steps2Take  =  STEPS_PER_OUTPUT_REVOLUTION / 4;  // Rotate CW 1/2 turn
+  small_stepper.setSpeed(300);   
+  small_stepper.step((Steps2Take));
   delay(1000);
 
-  Steps2Take  =  - STEPS_PER_OUTPUT_REVOLUTION / 2;  // Rotate CCW 1/2 turn  
-  small_stepper.setSpeed(700);  // 700 a good max speed??
+  Steps2Take  =  (-1)*STEPS_PER_OUTPUT_REVOLUTION / 4;  // Rotate CCW 1/2 turn  
+  small_stepper.setSpeed(300);  // 700 a good max speed??
   small_stepper.step(Steps2Take);
-  delay(2000);
+  delay(1000);
 
 }
