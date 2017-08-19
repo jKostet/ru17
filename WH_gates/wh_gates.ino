@@ -22,7 +22,7 @@ void setup() {
 
 void loop() {
   
-  gateToChoose = random(2, 4);
+  gateToChoose = random(1, 4);
 
   Serial.println(gateToChoose);
 
