@@ -45,7 +45,7 @@ void testSensor() {
   Serial.println(leftSwitch);
 
   // if both switches are on, send signal to cube dispenser
-  if ((rightSwitch + leftSwitch) == 0) {
+  if ((rightSwitch + leftSwitch) < 2) {
     Serial.println(", DROP CUBE");
     dropCube();
   } else {
@@ -61,19 +61,22 @@ void dropCube() {
   // should probably dispense one every 15s?
   // if timer < delaymillis dispense cube, after that timer += delaymillis, timer = timer%(15000/delaymillis)
   if (timer < delaymillis) {
-    moveServo();
+    moveServo(cubeservo, 40, 130, 10);
   }
   timer += delaymillis;
-  timer = timer % (15000/delaymillis);
+  timer = timer % 15000;
+  Serial.println(timer);
 }
 
-void moveServo() {
-  for (pos = 0; pos <= 180; pos += 1) {
-    cubeservo.write(pos);
-    delay(15);
+void moveServo(Servo servo, int min_pos, int max_pos, int delaytime) {
+  //Serial.println("MOVE SERVO");
+  for (pos = min_pos; pos <= max_pos; pos += 1) {
+    servo.write(pos);
+    delay(10);
   }
-  for (pos = 180; pos >= 0; pos -= 1) {
-    cubeservo.write(pos);
-    delay(15);
+  delay(delaytime);
+  for (pos = max_pos; pos >= min_pos; pos -= 1) {
+    servo.write(pos);
+    delay(10);
   }
 }
